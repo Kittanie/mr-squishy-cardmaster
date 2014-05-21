@@ -1,0 +1,14 @@
+{
+  "name": "mr-squishy-cardmaster",
+  "repo": "kitto1/mr-squishy-cardmaster",
+  "description": "dealer for card games",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
