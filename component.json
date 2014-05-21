@@ -4,7 +4,9 @@
   "description": "dealer for card games",
   "version": "0.0.1",
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "kitto1/scruffy-shuffle": "*"
+  },
   "development": {},
   "license": "MIT",
   "main": "index.js",
