@@ -5,12 +5,14 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "kitto1/scruffy-shuffle": "*"
+    
   },
   "development": {},
   "license": "MIT",
   "main": "index.js",
   "scripts": [
-    "index.js"
+    "index.js",
+    "dealer.js",
+    "player.js"
   ]
 }

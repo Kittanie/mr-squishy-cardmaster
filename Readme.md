@@ -44,7 +44,7 @@ var cardmaster = require('mr-squishy-cardmaster')
 
 // get a deck of cards with aces low
 var deck = decked({
-  aces:'low'
+  ace:'low'
 })
 
 // get cards that exclude face cards
@@ -70,14 +70,14 @@ var player1 = game.player(0)
 var player2 = game.player(1)
 
 // deal 2 cards from the top of player 1's hand into a new array
-var player1Cards = player1.take(2)
+var player1Cards = player1.takeCards(2)
 
 // deal 2 cards from the top of player 2's hand into a new array
-var player2Cards = player2.take(2)
+var player2Cards = player2.takeCards(2)
 
 // decide that player 2 wins all 4 cards
 // and put them back onto the bottom of player 2's hand
-player2.put(player1Cards.concat(player2Cards))
+player2.putCards(player1Cards.concat(player2Cards))
 ```
 
 ## api
@@ -121,7 +121,23 @@ var player1 = game.player(0)
 var player2 = game.player(1)
 ```
 
-### `var cards = player.take(number, position)`
+### `var cards = player.hand()`
+
+Return the full list of cards in the players hand
+
+### `var card = player.takeCard(position)`
+
+Take a single card from a players hand
+
+Position can be 'top' or 'bottom' (top is default).
+
+### `player.putCard(card, position)`
+
+Return a single card to a players hand
+
+Position can be 'top' or 'bottom' (bottom is default).
+
+### `var cards = player.takeCards(number, position)`
 
 Take some cards from a players hand - this alters the count for that hand (because it removes the cards from the hand)
 
@@ -129,12 +145,11 @@ Count is the number of cards to return in the array.
 
 Position can be 'top' or 'bottom' (top is default).
 
-### `player.put(cards, position)`
+### `player.putCards(cards, position)`
 
 Insert some cards back into a players hand - cards is an array of the card objects.
 
 Position can be 'top' or 'bottom' (bottom is default)
-
 
 ### `var count = player.count()`
 

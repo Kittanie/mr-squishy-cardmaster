@@ -1,8 +1,5 @@
-var scruffyShuffle=require("scruffy-shuffle")
+var Dealer = require('./dealer')
 
-function cardMaster () {
-	// body...
-	console.log("card master")
+module.exports = function(hands){
+	return new Dealer(hands)
 }
-
-module.exports=cardMaster

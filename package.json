@@ -1,0 +1,32 @@
+{
+  "name": "mr-squishy-cardmaster",
+  "version": "0.0.1",
+  "description": "Keep track of card games with players and current hands.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kitto1/mr-squishy-cardmaster.git"
+  },
+  "keywords": [
+    "card",
+    "game",
+    "dealer"
+  ],
+  "author": "Kai and Ivy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kitto1/mr-squishy-cardmaster/issues"
+  },
+  "homepage": "https://github.com/kitto1/mr-squishy-cardmaster",
+  "devDependencies": {
+    "decked": "0.0.2",
+    "scruffy-shuffle": "0.0.2",
+    "tape": "^2.13.1"
+  },
+  "dependencies": {
+    "component-emitter": "^1.1.2"
+  }
+}

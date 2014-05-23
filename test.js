@@ -1,97 +1,65 @@
-var shuffle = require('./')
+var cardmaster = require('./')
 var tape     = require('tape')
+var decked = require('decked')
+var scruffyShuffle = require('scruffy-shuffle')
 
-function getBigDeck(){
-  var arr = []
-  var counter = 0
-  while(counter<1000){
-    arr.push({
-      num:counter
-    })
-    counter++
-  }
-  return arr
-}
+function getHands(){
+  var deck = decked({
+    ace:'low'
+  })
 
-function getPercentageBetweenNumbers(x,y){
-  var large = x > y ? x : y
-  var small = x > y ? y : x
-  var gap = large - small
-  if(small===0) return 1
-  return gap / small
-}
+  var cards = deck(function(card){
+    return card.number<=10
+  })
 
-
-tape('distribute fairly with even weighting', function(t){
-  
-  var hands = shuffle(getBigDeck(), {
-    valueField:'num',
+  var hands = scruffyShuffle(cards, {
+    valueField:'number',
     players:[1,1]
   })
 
-  t.equal(hands[0].length, 500, 'there are 500 cards in hand 1')
-  t.equal(hands[1].length, 500, 'there are 500 cards in hand 2')
+  return hands
+}
 
-  var totals = [0,0]
+tape('make sure the deck is in order', function(t){
 
-  hands[0].forEach(function(o){
-    totals[0] += o.num
-  })
+  var hands = getHands()
 
-  hands[1].forEach(function(o){
-    totals[1] += o.num
-  })
-
-  /*
+  t.equal(hands.length, 2, 'there are 2 hands')
+  t.equal(hands[0].length, 20, 'there are 20 cards in each hand')
   
-    this is a way of telling the 'weight' between 2 numbers
+  t.end()
 
-    it will be useful when doctoring the weight : )
-    
-  */
-  var weighting = getPercentageBetweenNumbers(totals[0], totals[1])
+})
 
+tape('throw an error if a player is asked for that does not exist', function(t){
 
-  // on fair distribution the weight needs to be no more than .2
-  // (i.e. .2 is reasonable pure luck)
+  var game = cardmaster(getHands())
 
-  t.ok(weighting <= .2, 'fair weighting is less than .2')
+  t.throws(function(){
+    var player = game.player(2)
+  }, new Error('player 2 does not exist'), 'throws an error when a non-existent player is requested')
 
   t.end()
 
 })
 
+tape('let one player win a hand and end up with more cards', function(t){
 
-tape('be a randomn shuffle', function(t){
-  
-  var hands = shuffle(getBigDeck(), {
-    valueField:'num',
-    players:[1]
-  })
+  var game = cardmaster(getHands())
 
-  t.equal(hands[0].length, 1000, 'there are 1000 cards in hand 1')
-  
-  t.ok(hands[0][0].num!==0, 'the first card is not 0')
-  t.ok(hands[0][50].num!==50, 'the 50th card is not 50')
-  t.ok(hands[0][230].num!==230, 'the 230th card is not 230')
-  t.end()
+  var player1 = game.player(0)
+  var player2 = game.player(1)
 
-})
+  var player1Cards = player1.takeCards(2)
+  t.equal(player1Cards.length, 2, 'there are 2 cards in player 1s hand')
 
+  var player2Cards = player2.takeCards(2)
+  t.equal(player2Cards.length, 2, 'there are 2 cards in player 2s hand')
 
-tape('throw an error with no valueField or players options', function(t){
+  player2.putCards(player1Cards.concat(player2Cards))
 
-  t.throws(function(){
-    var hands = shuffle(getBigDeck(), {
-      players:[1,1]
-    })
-  }, new Error('valueField option required'), 'throws an error with no valueField option')
-
-  t.throws(function(){
-    var hands = shuffle(getBigDeck(), {
-      valueField:'num'
-    })
-  }, new Error('players option required'), 'throws an error with no valueField option')
+  t.equal(player1.count(), 18)
+  t.equal(player2.count(), 22)
 
   t.end()
 
