@@ -1,4 +1,4 @@
-var Emitter = require('component-emitter')
+var Emitter = require('emitter')
 var Player = require('./player')
 
 function Dealer(hands){
