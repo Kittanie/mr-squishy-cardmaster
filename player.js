@@ -1,4 +1,4 @@
-var Emitter = require('component-emitter')
+var Emitter = require('emitter')
 
 function Player(hand){
 	this._hand = hand
