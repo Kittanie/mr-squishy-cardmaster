@@ -1,6 +1,6 @@
 {
   "name": "mr-squishy-cardmaster",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Keep track of card games with players and current hands.",
   "main": "index.js",
   "scripts": {
