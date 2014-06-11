@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    
+    "component/emitter": "*"
   },
   "development": {},
   "license": "MIT",
@@ -14,5 +14,8 @@
     "index.js",
     "dealer.js",
     "player.js"
+  ],
+  "remotes": [
+    "https://raw.githubusercontent.com"
   ]
 }
